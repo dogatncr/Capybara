@@ -1,19 +1,12 @@
 package com.stdev.shopit.presentation.di
 
 import com.example.capybara.data.api.ApiServices
-import com.example.capybara.data.database.CapybaraDatabase
-import com.example.capybara.data.repository.remote.RemoteDataSourceImpl
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module

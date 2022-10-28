@@ -1,4 +1,4 @@
-package com.example.capybara.data.repository.remote
+package com.example.capybara.domain.repository
 
 import com.example.capybara.data.models.Product
 import retrofit2.Response

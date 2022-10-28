@@ -1,4 +1,4 @@
-package com.example.capybara.data.repository.local
+package com.example.capybara.domain.repository
 
 import com.example.capybara.data.models.CartProduct
 import kotlinx.coroutines.flow.Flow

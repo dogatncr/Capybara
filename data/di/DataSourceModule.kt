@@ -2,10 +2,10 @@ package com.stdev.shopit.presentation.di
 
 import com.example.capybara.data.api.ApiServices
 import com.example.capybara.data.database.CapybaraDAO
-import com.example.capybara.data.repository.local.LocalDataSource
-import com.example.capybara.data.repository.local.LocalDataSourceImpl
-import com.example.capybara.data.repository.remote.RemoteDataSource
-import com.example.capybara.data.repository.remote.RemoteDataSourceImpl
+import com.example.capybara.domain.repository.LocalDataSource
+import com.example.capybara.data.repository.LocalDataSourceImpl
+import com.example.capybara.domain.repository.RemoteDataSource
+import com.example.capybara.data.repository.RemoteDataSourceImpl
 
 import dagger.Module
 import dagger.Provides

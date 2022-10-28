@@ -1,7 +1,8 @@
-package com.example.capybara.data.repository.remote
+package com.example.capybara.data.repository
 
 import com.example.capybara.data.api.ApiServices
 import com.example.capybara.data.models.Product
+import com.example.capybara.domain.repository.RemoteDataSource
 import retrofit2.Response
 import javax.inject.Inject
 
