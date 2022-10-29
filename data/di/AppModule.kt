@@ -2,6 +2,7 @@ package com.example.capybara.data.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.capybara.data.util.DataStoreManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,9 +13,8 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
-    @Provides
     @Singleton
-    fun providesSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences("shared_pref", Context.MODE_PRIVATE)
-    }
+    @Provides
+    fun provideDataStoreManager(@ApplicationContext appContext: Context): DataStoreManager =
+        DataStoreManager(appContext)
 }
