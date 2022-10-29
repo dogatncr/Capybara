@@ -18,9 +18,12 @@ class SplashActivity : AppCompatActivity() {
     private val viewModel by viewModels<SplashViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
+        installSplashScreen().setKeepOnScreenCondition {
+            !viewModel.isLoading.value
+        }
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launchWhenResumed {
+        lifecycleScope.launchWhenCreated {
             launch {
                 viewModel.uiEvent.collect {
                     when (it) {

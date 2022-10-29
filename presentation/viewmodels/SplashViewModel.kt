@@ -1,5 +1,8 @@
 package com.example.capybara.presentation.viewmodels
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.capybara.data.util.DataStoreManager
@@ -17,6 +20,8 @@ class SplashViewModel @Inject constructor(private val dataStoreManager: DataStor
     private val _uiEvent = MutableSharedFlow<SplashViewEvent>(replay = 0)
     val uiEvent: SharedFlow<SplashViewEvent> = _uiEvent
 
+    private val _isLoading: MutableState<Boolean> = mutableStateOf(true)
+    val isLoading: State<Boolean> = _isLoading
     //TODO
     // Check Login User
     // If user is logged in, navigate to main activity
@@ -37,6 +42,7 @@ class SplashViewModel @Inject constructor(private val dataStoreManager: DataStor
                     // Navigate to on boarding activity
                 }
             }
+            _isLoading.value = false
         }
     }
 }
