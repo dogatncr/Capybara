@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">capybara</string>
+    <string name="title_onboarding_1">Welcome to onboarding1</string>
+    <string name="description_onboarding_1">description onboarding1</string>
+    <string name="title_onboarding_2">Welcome to onboarding2</string>
+    <string name="description_onboarding_2">description onboarding2</string>
+    <string name="title_onboarding_3">Welcome to onboarding3</string>
+    <string name="description_onboarding_3">description onboarding3</string>
+    <string name="skip">skip</string>
+    <string name="next">next</string>
+</resources>

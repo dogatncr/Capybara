@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_onboarding_1">Welcome to onboarding1</string>
+    <string name="description_onboarding_1">description onboarding1</string>
+    <string name="skip">skip</string>
+    <string name="next">next</string>
+</resources>
