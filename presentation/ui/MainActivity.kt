@@ -14,7 +14,6 @@ import com.example.capybara.databinding.ActivityMainBinding
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_Capybara)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }

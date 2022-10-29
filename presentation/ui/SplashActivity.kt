@@ -19,7 +19,6 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
-        navigateToMain()
 
         lifecycleScope.launchWhenResumed {
             launch {
