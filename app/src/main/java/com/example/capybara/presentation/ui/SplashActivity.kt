@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class SplashActivity : AppCompatActivity() {
     private val viewModel by viewModels<SplashViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
+        installSplashScreen()
         installSplashScreen().setKeepOnScreenCondition {
             !viewModel.isLoading.value
         }
@@ -31,10 +31,7 @@ class SplashActivity : AppCompatActivity() {
                             navigateToOnBoarding()
                         }
                         is SplashViewEvent.NavigateToMain -> {
-                            navigateToMain()
-                        }
-                        is SplashViewEvent.NavigateToLogin -> {
-
+                            navigateToMain(it.isNavigateHome)
                         }
                     }
                 }
@@ -42,10 +39,11 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToMain() {
+    private fun navigateToMain(isNavigateHome: Boolean) {
         lifecycleScope.launch {
             delay(2000)
             val intent = Intent(this@SplashActivity, MainActivity::class.java)
+            intent.putExtra(MainActivity.KEY_NAVIGATE_HOME, isNavigateHome)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent)
             finish()

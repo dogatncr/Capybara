@@ -1,4 +1,4 @@
-package com.stdev.shopit.presentation.di
+package com.example.capybara.data.di
 
 import com.example.capybara.data.api.ApiServices
 import com.example.capybara.data.database.CapybaraDAO

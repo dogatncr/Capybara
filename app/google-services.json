@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "712488803634",
+    "project_id": "capybara-864fc",
+    "storage_bucket": "capybara-864fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712488803634:android:6d4dc543563a2a5e3ccb2b",
+        "android_client_info": {
+          "package_name": "com.example.capybara"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712488803634-qadekvv6gjui7udo7s8tt95tvsdo93kl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0C7FLot_Lm8iSnKfTaRTlEwS1qtdN-Qo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712488803634-qadekvv6gjui7udo7s8tt95tvsdo93kl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

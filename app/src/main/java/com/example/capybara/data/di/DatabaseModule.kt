@@ -1,5 +1,4 @@
-package com.stdev.shopit.presentation.di
-
+package com.example.capybara.data.di
 import android.app.Application
 import androidx.room.Room
 import com.example.capybara.data.database.CapybaraDAO

@@ -2,14 +2,15 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.capybara.presentation.ui.LoginFragment.LoginFragment"
-        android:label="LoginFragment" />
-    <fragment
-        android:id="@+id/onboardingFragment"
-        android:name="com.example.capybara.presentation.ui.OnboardingFragment"
-        android:label="OnboardingFragment" />
+        android:id="@+id/homeFragment"
+        android:name="com.example.capybara.presentation.ui.HomeFragment.HomeFragment"
+        android:label="fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_login_graph"
+            app:destination="@id/login_graph" />
+    </fragment>
+    <include app:graph="@navigation/login_graph" />
 </navigation>
