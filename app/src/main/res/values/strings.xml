@@ -8,4 +8,6 @@
     <string name="description_onboarding_3">description onboarding3</string>
     <string name="skip">skip</string>
     <string name="next">next</string>
+    <string name="cart">Cart</string>
+    <string name="home">Home</string>
 </resources>

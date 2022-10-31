@@ -11,7 +11,6 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.ui.setupWithNavController
 import com.example.capybara.databinding.ActivityMainBinding
-import com.example.capybara.databinding.ActivityOnboardingBinding
 import com.example.capybara.presentation.viewmodels.MainUiState
 import com.example.capybara.presentation.viewmodels.MainViewModel
 import kotlinx.coroutines.launch
