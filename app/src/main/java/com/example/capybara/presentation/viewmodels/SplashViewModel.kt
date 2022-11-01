@@ -38,7 +38,7 @@ class SplashViewModel @Inject constructor(private val dataStoreManager: DataStor
             if (checkCurrentUser()) {
                 _uiEvent.emit(SplashViewEvent.NavigateToMain(true))
             } else {
-                if (isOnBoardingVisible) {
+                if (!isOnBoardingVisible) {
                     _uiEvent.emit(SplashViewEvent.NavigateToMain(false))
                 } else {
                     _uiEvent.emit(SplashViewEvent.NavigateToOnBoarding)

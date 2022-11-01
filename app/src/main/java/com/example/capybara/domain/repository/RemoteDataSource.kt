@@ -1,13 +1,14 @@
 package com.example.capybara.domain.repository
 
+import com.example.capybara.data.models.CategoryList
 import com.example.capybara.data.models.Product
+import com.example.capybara.data.models.ProductList
+import com.example.capybara.data.util.DataState
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
 
 interface RemoteDataSource {
-    suspend fun getAllProducts() : Response<List<Product>>
-    suspend fun getProduct(ItemId : Int) : Response<Product>
-    suspend fun getAllCategories() : Response<List<String>>
-    suspend fun getCategoryProducts(category : String) : Response<List<Product>>
+    suspend fun getAllProducts() : DataState<ProductList>
+    suspend fun getProduct(ItemId : Int) : DataState<ProductList>
+    suspend fun getAllCategories() : ArrayList<String>
+    suspend fun getCategoryProducts(category : String) : ArrayList<Product>
 }
