@@ -3,4 +3,6 @@ package com.example.capybara.data.models
 
 import com.google.gson.annotations.SerializedName
 
-class CategoryList : ArrayList<String>()
+data class CategoryList (
+    val categoryList:ArrayList<String>
+        )

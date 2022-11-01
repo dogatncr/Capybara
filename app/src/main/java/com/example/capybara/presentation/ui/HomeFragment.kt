@@ -7,21 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.capybara.data.models.Category
 import com.example.capybara.data.util.DataState
 import com.example.capybara.databinding.FragmentHomeBinding
 import com.example.capybara.presentation.adapter.CategoryAdapter
+import com.example.capybara.presentation.viewmodels.HomeViewEvent
 import com.example.capybara.presentation.viewmodels.HomeViewModel
+import com.example.capybara.presentation.viewmodels.HomeViewState
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel by viewModels<HomeViewModel>()
-    private lateinit var categoryList: ArrayList<Category>
+    //private lateinit var categoryList: ArrayList<Category>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,23 +37,45 @@ class HomeFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getCategoriesWithProducts()
+        //viewModel.getCategoriesWithProducts()
 
-        viewModel.categoryList.observe(viewLifecycleOwner){response ->
-            when(response){
-                is DataState.Success -> {
-                    val categories = response.data
-                    setCategoryRecycler(categories)
-                }
-                is DataState.Loading -> {
-                    Log.i("HomeFragment","Loading...")
-                }
-                is DataState.Error -> {
-                    Log.i("HomeFragment","error")
+        lifecycleScope.launchWhenResumed {
+            launch {
+                viewModel.uiState.collect {
+                    when (it) {
+                        is HomeViewState.Success -> {
+                            val categories = it.categories
+                            if (categories != null) {
+                                if(categories.size!=0)
+                                    setCategoryRecycler(categories)
+                            }
+                            else{
+                                //todo empty category page
+                            }
+                        }
+                        is HomeViewState.Loading -> {
+
+                        }
+                        is HomeViewState.Empty -> {
+
+                        }
+                    }
                 }
             }
 
-
+            launch {
+                viewModel.uiEvent.collect {
+                    when (it) {
+                        is HomeViewEvent.ShowError -> {
+                            Snackbar.make(
+                                binding.root,
+                                it.message.toString(),
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+            }
         }
     }
     private fun setCategoryRecycler(categories: ArrayList<Category>) {

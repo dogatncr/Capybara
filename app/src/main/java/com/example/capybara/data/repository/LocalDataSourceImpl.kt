@@ -2,7 +2,6 @@ package com.example.capybara.data.repository
 
 import com.example.capybara.data.database.CapybaraDAO
 import com.example.capybara.data.models.CartProduct
-import com.example.capybara.domain.repository.LocalDataSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

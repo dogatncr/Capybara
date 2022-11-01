@@ -1,9 +1,8 @@
 package com.example.capybara.data.api
 
-import com.example.capybara.data.models.CategoryList
-import com.example.capybara.data.models.Product
 import com.example.capybara.data.models.ProductList
 import com.example.capybara.data.util.DataState
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiServices {
@@ -19,7 +18,5 @@ interface ApiServices {
     suspend fun getAllCategories() : ArrayList<String>
     //Get all products from category
     @GET("products/category/{category}")
-    suspend fun getCategoryProducts(@Path(value = "category") category : String) : ArrayList<Product>
-
-
+    suspend fun getCategoryProducts(@Path(value = "category") category : String) : Response<ProductList>
 }
