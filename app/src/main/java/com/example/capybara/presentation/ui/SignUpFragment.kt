@@ -14,6 +14,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.capybara.R
 
 import com.example.capybara.databinding.FragmentSignupBinding
+import com.example.capybara.presentation.viewmodels.LoginViewModel
+import com.example.capybara.presentation.viewmodels.SignUpUiState
 import com.example.capybara.presentation.viewmodels.SignUpViewModel
 import com.example.capybara.presentation.viewmodels.SignupViewEvent
 import com.google.android.material.snackbar.Snackbar
@@ -56,6 +58,17 @@ class SignUpFragment : Fragment() {
                         is SignupViewEvent.ShowError -> {
                             Snackbar.make(requireView(), it.error, Snackbar.LENGTH_SHORT)
                                 .show()
+                        }
+                    }
+                }
+            }
+            launch {
+                viewModel.uiState.collect {
+                    when (it) {
+                        SignUpUiState.Loading -> {
+                            binding.loadingPanel.visibility= View.VISIBLE
+                        }
+                        else -> {binding.loadingPanel.visibility= View.GONE
                         }
                     }
                 }

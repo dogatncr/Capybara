@@ -28,12 +28,16 @@ class LoginViewModel @Inject constructor(
             if (isValidFields(email, password)) {
                 loginUseCase.invoke(LoginUseCaseParams(email, password)).collect {
                     when (it) {
-                        is LoginUseCaseState.Loading -> {}
+                        is LoginUseCaseState.Loading -> {
+                            _uiState.emit(LoginUiState.Loading)
+                        }
                         is LoginUseCaseState.Error -> {
                             _uiEvent.emit(LoginViewEvent.ShowError(it.error.toString()))
+                            _uiState.emit(LoginUiState.Error)
                         }
                         is LoginUseCaseState.Success -> {
                             _uiEvent.emit(LoginViewEvent.NavigateToMain)
+                            _uiState.emit(LoginUiState.Success)
                         }
                     }
                 }
@@ -56,6 +60,6 @@ class LoginViewModel @Inject constructor(
         object Empty : LoginUiState()
         object Loading : LoginUiState()
         object Success : LoginUiState()
-        class Error(val error: String) : LoginUiState()
+        object Error : LoginUiState()
     }
 }

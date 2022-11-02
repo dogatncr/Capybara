@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.navigateUp
 import com.airbnb.lottie.LottieDrawable.INFINITE
 import com.example.capybara.databinding.FragmentCartBinding
 import com.example.capybara.databinding.FragmentHomeBinding
@@ -77,6 +78,9 @@ class CartFragment : Fragment(){
 
         binding.cartClearAll.setOnClickListener {
             viewModel.clearCart()
+        }
+        binding.startShoppingButton.setOnClickListener{
+            findNavController().navigateUp()
         }
     }
 }

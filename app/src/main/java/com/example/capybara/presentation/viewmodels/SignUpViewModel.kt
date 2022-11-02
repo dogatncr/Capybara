@@ -7,7 +7,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,11 +22,15 @@ class SignUpViewModel  @Inject constructor(
     private val _uiEvent = MutableSharedFlow<SignupViewEvent>(replay = 0)
     val uiEvent: SharedFlow<SignupViewEvent> = _uiEvent
 
+    private val _uiState = MutableStateFlow<SignUpUiState>(SignUpUiState.Empty)
+    val uiState: StateFlow<SignUpUiState> = _uiState
+
     fun signup(email: String, password: String) {
         viewModelScope.launch {
             isValidFields(email, password)?.let {
                 _uiEvent.emit(SignupViewEvent.ShowError(it))
             } ?: kotlin.run {
+                _uiState.emit(SignUpUiState.Loading)
                 firebaseAuth.createUserWithEmailAndPassword(
                     email,
                     password
@@ -35,6 +41,7 @@ class SignUpViewModel  @Inject constructor(
                     } else {
                         viewModelScope.launch {
                             _uiEvent.emit(SignupViewEvent.ShowError(task.exception?.message.toString()))
+                            _uiState.emit(SignUpUiState.Error)
                         }
                     }
                 }
@@ -47,9 +54,12 @@ class SignUpViewModel  @Inject constructor(
             dataStoreManager.setUserName(userName)
             fireStore.collection("users").add(mapOf("username" to userName, "uuid" to uuid))
                 .addOnSuccessListener { documentReference ->
-                    viewModelScope.launch { _uiEvent.emit(SignupViewEvent.NavigateToMain) }
+                    viewModelScope.launch {
+                        _uiState.emit(SignUpUiState.Success)
+                        _uiEvent.emit(SignupViewEvent.NavigateToMain) }
                 }.addOnFailureListener { error ->
                     viewModelScope.launch {
+                        _uiState.emit(SignUpUiState.Error)
                         _uiEvent.emit(SignupViewEvent.ShowError(error.message.toString()))
                     }
                 }
@@ -79,4 +89,10 @@ class SignUpViewModel  @Inject constructor(
 sealed class SignupViewEvent {
     object NavigateToMain : SignupViewEvent()
     class ShowError(val error: String) : SignupViewEvent()
+}
+sealed class SignUpUiState {
+    object Empty : SignUpUiState()
+    object Loading : SignUpUiState()
+    object Success : SignUpUiState()
+    object Error : SignUpUiState()
 }

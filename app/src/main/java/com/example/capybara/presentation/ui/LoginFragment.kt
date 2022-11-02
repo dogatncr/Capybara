@@ -3,6 +3,8 @@ package com.example.capybara.presentation.ui.LoginFragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -12,7 +14,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.capybara.R
 import com.example.capybara.databinding.FragmentLoginBinding
+import com.example.capybara.presentation.viewmodels.HomeViewEvent
 import com.example.capybara.presentation.viewmodels.LoginViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -35,12 +39,7 @@ class LoginFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = findNavController()
-        binding.btnLogin.setOnClickListener{
-            viewModel.login(
-                binding.etEmail.text.trim().toString(),
-                binding.etPassword.text.trim().toString()
-            )
-        }
+
 
         lifecycleScope.launchWhenResumed {
             launch {
@@ -62,7 +61,18 @@ class LoginFragment : Fragment(){
                     }
                 }
             }
+            launch {
+                viewModel.uiState.collect {
+                    when (it) {
+                        LoginViewModel.LoginUiState.Loading -> {
+                            binding.loadingPanel.visibility=VISIBLE
+                        }
+                        else -> {binding.loadingPanel.visibility= GONE}
+                    }
+                }
+            }
         }
+
         binding.btnLogin.setOnClickListener {
             viewModel.login(
                 binding.etEmail.text.trim().toString(),
