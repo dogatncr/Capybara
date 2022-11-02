@@ -4,6 +4,8 @@ import com.example.capybara.data.api.ApiServices
 import com.example.capybara.data.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,9 +36,14 @@ class NetworkModule {
     }
 
     @Provides
+    @Singleton
     fun provideGsonConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
     }
+    @Provides
+    @Singleton
+    fun providesGson(): Gson = GsonBuilder().create()
+
     @Provides
     fun provideApiService(retrofit: Retrofit) : ApiServices {
         return retrofit.create(ApiServices::class.java)

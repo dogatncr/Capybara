@@ -3,6 +3,7 @@ package com.example.capybara.data.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.capybara.data.util.DataStoreManager
+import com.example.capybara.presentation.adapter.CartAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,4 +18,11 @@ class AppModule {
     @Provides
     fun provideDataStoreManager(@ApplicationContext appContext: Context): DataStoreManager =
         DataStoreManager(appContext)
+
+    @Singleton
+    @Provides
+    fun providesCartAdapter() : CartAdapter {
+        return CartAdapter()
+    }
+
 }

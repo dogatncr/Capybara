@@ -16,7 +16,7 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    fun providesDatabase(app : Application,gson : Gson) : CapybaraDatabase{
+    fun providesDatabase(app : Application) : CapybaraDatabase{
         return Room.databaseBuilder(app,CapybaraDatabase::class.java,"capybara_database")
             .fallbackToDestructiveMigration()
             .build()

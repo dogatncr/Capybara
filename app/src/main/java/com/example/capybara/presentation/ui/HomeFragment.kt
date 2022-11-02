@@ -78,6 +78,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
     private fun setCategoryRecycler(categories: ArrayList<Category>) {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false)
         binding.categoryRecView.setLayoutManager(layoutManager)

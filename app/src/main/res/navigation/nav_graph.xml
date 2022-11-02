@@ -2,15 +2,25 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
+    xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.capybara.presentation.ui.HomeFragment.HomeFragment"
-        android:label="fragment_home">
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_login_graph"
             app:destination="@id/login_graph" />
+        <action
+            android:id="@+id/action_homeFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.capybara.presentation.ui.CartFragment"
+        android:label="FavoriteFragment"
+        tools:layout="@layout/fragment_cart" />
     <include app:graph="@navigation/login_graph" />
 </navigation>
