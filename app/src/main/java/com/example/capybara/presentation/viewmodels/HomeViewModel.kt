@@ -40,13 +40,13 @@ class HomeViewModel @Inject constructor(
             categories = repository.getAllCategories()
             productUseCase.invoke(ProductUseCaseParams(categories)).collect {
                     when (it) {
-                        is ProductUseCaseState.Loading -> {}
+                        is ProductUseCaseState.Loading -> {_uiState.emit(HomeViewState.Loading)}
                         is ProductUseCaseState.Error -> {
                             _uiEvent.emit(HomeViewEvent.ShowError(it.error.toString()))
                         }
                         is ProductUseCaseState.Success -> {
                             val res=it.data
-                            _uiState.value = HomeViewState.Success(res)
+                            _uiState.emit( HomeViewState.Success(res))
 
                         }
                     }

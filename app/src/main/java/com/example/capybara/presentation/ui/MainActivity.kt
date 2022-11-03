@@ -1,5 +1,6 @@
 package com.example.capybara.presentation.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -37,32 +38,46 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel.start()
+
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+
                 viewModel.uiState.collect {
                     when (it) {
-                        is MainUiState.Success -> {
-                            binding.loadingPanel.visibility= GONE
-                            initNavController(it.isNavigateHome)
-                        }
                         is MainUiState.Loading ->binding.loadingPanel.visibility= VISIBLE
                         MainUiState.Empty ->  Log.d("main","activity started")
                         MainUiState.Error -> Log.d("error","error in main activity")
+                        MainUiState.Home ->  initNavController()
+                        MainUiState.Login ->  initLogin()
+                        MainUiState.Onboard -> navigateToOnBoarding()
                     }
                 }
             }
         }
 
     }
-    private fun initNavController(isNavigateToHome: Boolean) {
+    private fun initLogin() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
-        if (isNavigateToHome.not()) {
-            navController.navigate(R.id.login_graph)
-        }
-        binding.isVisibleBar = isNavigateToHome
+        navController.navigate(R.id.login_graph)
+        binding.isVisibleBar = false
     }
+    private fun initNavController() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        binding.bottomNavigationView.setupWithNavController(navController)
+        binding.isVisibleBar = true
+    }
+    private fun navigateToOnBoarding() {
+        lifecycleScope.launch {
+            val intent = Intent(this@MainActivity, OnboardingActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent)
+            finish()
+        }
+    }
+
 }

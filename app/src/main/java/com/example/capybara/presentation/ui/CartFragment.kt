@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.navigateUp
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieDrawable.INFINITE
+import com.example.capybara.data.models.CartProduct
 import com.example.capybara.databinding.FragmentCartBinding
 import com.example.capybara.databinding.FragmentHomeBinding
 import com.example.capybara.presentation.adapter.CartAdapter
@@ -30,6 +33,7 @@ class CartFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCartBinding.inflate(inflater, container, false)
+        binding.cartRecView.adapter = cartAdapter
         return binding.root
     }
 
@@ -42,9 +46,15 @@ class CartFragment : Fragment(){
                 binding.animationViewCartPage.repeatCount=INFINITE
                 binding.emptyBagMsgLayout.visibility = View.VISIBLE
                 binding.bottomCartLayout.visibility = View.GONE
-                binding.cartClearAll.visibility = View.GONE
+                binding.cartClearAll.visibility = View.INVISIBLE
             }
-            cartAdapter.differ.submitList(it)
+            else{
+                setCartRecycler(it)
+                binding.bottomCartLayout.visibility = View.VISIBLE
+                binding.cartRecView.visibility = View.VISIBLE
+                binding.cartClearAll.visibility = View.VISIBLE
+            }
+
         }
 
         viewModel.totalItems.observe(viewLifecycleOwner){
@@ -56,8 +66,15 @@ class CartFragment : Fragment(){
             binding.totalPrice.text = total
         }
 
-        binding.cartRecView.adapter = cartAdapter
+
         setOnClickListeners()
+    }
+
+    private fun setCartRecycler(it: List<CartProduct>?) {
+        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context,
+            LinearLayoutManager.VERTICAL, false)
+        binding.cartRecView.setLayoutManager(layoutManager)
+        cartAdapter.differ.submitList(it)
     }
 
     private fun setOnClickListeners() {

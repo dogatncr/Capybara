@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -38,7 +40,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //viewModel.getCategoriesWithProducts()
-
+        binding.MainScrollViewHomeFrag.isFillViewport=true
         lifecycleScope.launchWhenResumed {
             launch {
                 viewModel.uiState.collect {
@@ -52,9 +54,10 @@ class HomeFragment : Fragment() {
                             else{
                                 //todo empty category page
                             }
+                            binding.loadingPanel.visibility= GONE
                         }
                         is HomeViewState.Loading -> {
-
+                            binding.loadingPanel.visibility=VISIBLE
                         }
                         is HomeViewState.Empty -> {
 
