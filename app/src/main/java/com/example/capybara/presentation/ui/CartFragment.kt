@@ -42,6 +42,7 @@ class CartFragment : Fragment(){
 
         viewModel.getCartItems().observe(viewLifecycleOwner){
             if(it.size==0){
+                setCartRecycler(it)
                 binding.animationViewCartPage.playAnimation()
                 binding.animationViewCartPage.repeatCount=INFINITE
                 binding.emptyBagMsgLayout.visibility = View.VISIBLE

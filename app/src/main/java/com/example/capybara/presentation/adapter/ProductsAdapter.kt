@@ -9,11 +9,13 @@ import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.capybara.R
 import com.example.capybara.data.models.Product
 import com.example.capybara.databinding.ProductElementBinding
+import com.example.capybara.presentation.ui.HomeFragment.HomeFragmentDirections
 
 class ProductsAdapter(private val productList: ArrayList<Product>, context: Context): RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
     private lateinit var binding: ProductElementBinding
@@ -39,10 +41,9 @@ class ProductsAdapter(private val productList: ArrayList<Product>, context: Cont
             .into(holder.productImage)
 
         holder.productCard.setOnClickListener {
-           //TODO
-        }
-        holder.productAddToFav.setOnClickListener {
-            //TODO
+            //Navigation.findNavController( holder.productCard).navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(product));
+            Navigation.createNavigateOnClickListener(HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(product)).onClick(holder.productCard)
+            //onItemClickListener(product)
         }
     }
 
@@ -53,7 +54,6 @@ class ProductsAdapter(private val productList: ArrayList<Product>, context: Cont
 
     class ViewHolder(private val binding: ProductElementBinding):RecyclerView.ViewHolder(binding.root) {
         val productImage: ImageView = binding.productImage
-        val productAddToFav: ImageView = binding.productAddToFav
         val productCard: CardView =binding.cardView
         val productRating: RatingBar =binding.productRating
         val productName: TextView = binding.productName

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.capybara.data.models.Category
@@ -80,11 +81,13 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+
     }
 
     private fun setCategoryRecycler(categories: ArrayList<Category>) {
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false)
         binding.categoryRecView.setLayoutManager(layoutManager)
         binding.categoryRecView.adapter = CategoryAdapter(requireContext(),categories)
+
     }
 }

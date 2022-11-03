@@ -30,11 +30,13 @@ class CartViewModel @Inject constructor(
 
     fun computeTotal(cartItems : List<CartProduct>) = viewModelScope.launch(Dispatchers.IO){
         var price = 0.00
+        var total=0
         cartItems.forEach { product ->
-            price += product.price.toDouble()
+            price += product.price.toDouble() * product.quantity
+            total+=product.quantity
         }
         totalItemsPrice.postValue(price)
-        totalItems.postValue(cartItems.size)
+        totalItems.postValue(total)
     }
 
     fun deleteCartItem(CartProduct: CartProduct) = viewModelScope.launch(Dispatchers.IO) {
@@ -46,21 +48,25 @@ class CartViewModel @Inject constructor(
     }
 
     fun incrementItem(cartItem: CartProduct){
-        updateProductInCart(quantity = cartItem.quantity + 1,cartItem)
+        updateProductInCart(true,cartItem)
     }
 
     fun decrementItem(cartItem: CartProduct){
-        updateProductInCart(quantity = cartItem.quantity -1,cartItem)
+        updateProductInCart(false,cartItem)
     }
 
-    private fun updateProductInCart(quantity: Int,cartItem: CartProduct) = viewModelScope.launch(
+    private fun updateProductInCart(incremenet:Boolean,cartItem: CartProduct) = viewModelScope.launch(
         Dispatchers.IO
     ){
-        if(quantity>1){
-        val copy = cartItem.copy(cartItem.id,cartItem.image,cartItem.price,cartItem.title, quantity = quantity)
+        if(incremenet){
+        val copy = cartItem.copy(cartItem.id,cartItem.image,cartItem.price,cartItem.title, quantity = cartItem.quantity+1)
         cartUseCase.updateCartItem(copy)}
         else{
-            cartUseCase.deleteCartItem(cartItem)
+            if(cartItem.quantity >1){
+                val copy = cartItem.copy(cartItem.id,cartItem.image,cartItem.price,cartItem.title, quantity = cartItem.quantity-1)
+                cartUseCase.updateCartItem(copy)}
+            else{
+                cartUseCase.deleteCartItem(cartItem)}
         }
     }
 }

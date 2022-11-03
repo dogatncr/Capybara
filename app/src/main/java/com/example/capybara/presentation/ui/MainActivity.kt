@@ -68,8 +68,16 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        binding.bottomNavigationView.setupWithNavController(navController)
-        binding.isVisibleBar = true
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id == R.id.productDetailFragment) {
+                binding.bottomNavigationView.setupWithNavController(navController)
+                binding.isVisibleBar = false
+            } else {
+
+                binding.bottomNavigationView.setupWithNavController(navController)
+                binding.isVisibleBar = true
+            }
+        }
     }
     private fun navigateToOnBoarding() {
         lifecycleScope.launch {

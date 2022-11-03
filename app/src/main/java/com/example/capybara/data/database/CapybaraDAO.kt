@@ -18,6 +18,9 @@ interface CapybaraDAO {
     @Query("select * from cart")
     fun cartItems() : Flow<List<CartProduct>>
 
+    @Query("select * from cart WHERE id= :productId")
+    fun getCartItem(productId: Int) : Flow<CartProduct>
+
     @Query("delete from cart")
     suspend fun clearAll()
 

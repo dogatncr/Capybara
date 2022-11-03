@@ -16,11 +16,27 @@
         <action
             android:id="@+id/action_homeFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.capybara.presentation.ui.CartFragment"
         android:label="FavoriteFragment"
         tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/productDetailFragment"
+        android:name="com.example.capybara.presentation.ui.ProductDetailFragment"
+        android:label="ProductDetailFragment"
+        tools:layout="@layout/fragment_product_detail">
+        <argument
+            android:name="product"
+            app:argType="com.example.capybara.data.models.Product" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
     <include app:graph="@navigation/login_graph" />
 </navigation>

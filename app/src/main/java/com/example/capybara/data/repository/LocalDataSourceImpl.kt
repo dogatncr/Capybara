@@ -16,6 +16,10 @@ class LocalDataSourceImpl @Inject constructor(
         return DAO.cartItems()
     }
 
+    override fun getCartItem(productId: Int): Flow<CartProduct> {
+        return DAO.getCartItem(productId)
+    }
+
     override suspend fun updateCartItems(product: CartProduct) {
         return DAO.updateCart(product)
     }

@@ -28,5 +28,9 @@ class CartUseCase @Inject constructor(
     suspend fun updateCartItem(cartProduct: CartProduct){
         source.updateCartItems(cartProduct)
     }
+    fun getCartItem(cartProductId: Int) : Flow<CartProduct>{
+       return source.getCartItem(cartProductId)
+    }
+
 
 }

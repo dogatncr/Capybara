@@ -1,5 +1,7 @@
 package com.example.capybara.data.models
 
+import java.io.Serializable
+
 data class Product(
     val category: String,
     val description: String,
@@ -8,4 +10,4 @@ data class Product(
     val price: Double,
     val rating: Rating,
     val title: String
-)
+): Serializable
