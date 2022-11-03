@@ -59,8 +59,8 @@ class HomeFragment : Fragment() {
                         is HomeViewState.Loading -> {
                             binding.loadingPanel.visibility=VISIBLE
                         }
-                        is HomeViewState.Empty -> {
-
+                        is HomeViewState.Empty -> { //Started
+                            binding.loadingPanel.visibility=VISIBLE
                         }
                     }
                 }
