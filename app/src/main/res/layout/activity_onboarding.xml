@@ -4,7 +4,7 @@
     android:id="@+id/rl_create_account"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_white_1000">
+    android:background="@color/md_purple_50">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_skip"
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:orientation="horizontal"
-        android:background="@color/md_white_1000"
+        android:background="@color/md_purple_50"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="12dp">
 
@@ -52,7 +52,7 @@
             android:id="@+id/btn_next_step"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:background="@color/white"
+            android:background="@color/md_purple_50"
             android:src="@drawable/ic_round_arrow_forward_ios_24"
             android:layout_margin="10dp"
             android:layout_alignParentEnd="true"/>

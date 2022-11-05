@@ -34,18 +34,18 @@ class OnboardingActivity: AppCompatActivity(){
 
         binding.textSkip.setOnClickListener {
             viewModel.setOnBoardingStatus()
-            finish()
             val intent =
                 Intent(applicationContext, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
         binding.btnNextStep.setOnClickListener{
             if (getItem() > binding.viewPager.childCount) {
                 viewModel.setOnBoardingStatus()
-                finish()
                 val intent =
                     Intent(applicationContext, MainActivity::class.java)
                 startActivity(intent)
+                finish()
             } else {
                 binding.viewPager.setCurrentItem(getItem() + 1, true)
             }

@@ -35,9 +35,7 @@ class HomeViewModel @Inject constructor(
     private val _searchState = MutableSharedFlow<SearchViewState>(replay = 0)
     val searchState: SharedFlow<SearchViewState> = _searchState
 
-    init {
-        getCategoriesWithProducts()
-    }
+
     fun getCategoriesWithProducts() = viewModelScope.launch {
         try {
             categories = repository.getAllCategories()

@@ -80,10 +80,19 @@ class SignUpFragment : Fragment() {
         }
 
         binding.btnSignUp.setOnClickListener {
+            if( binding.etPassword.text == binding.etPassword2.text){
             viewModel.signup(
                 binding.etEmail.text.trim().toString(),
                 binding.etPassword.text.trim().toString(),
             )
+            }
+            else{
+                Snackbar.make(
+                    binding.root,
+                    "Password does not match",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
         }
         binding.btnLogin.setOnClickListener {
             navController.navigateUp()

@@ -22,11 +22,12 @@ class ProductUseCase @Inject constructor(
         }
     }
     private fun getProds(categories :ArrayList<String>)= callbackFlow{
+        trySendBlocking(ProductUseCaseState.Loading)
         for(each in categories){
            repository.getCategoryProducts(each).collect{data->
                when(data){
                    is DataState.Error -> trySendBlocking(ProductUseCaseState.Error(data.error?.status_message))
-                   is DataState.Loading -> trySendBlocking(ProductUseCaseState.Loading)
+                   is DataState.Loading->{}
                    is DataState.Success -> catList.add(Category(each,data.data))
                }
            }

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">capybara</string>
-    <string name="title_onboarding_1">Welcome to onboarding1</string>
-    <string name="description_onboarding_1">description onboarding1</string>
-    <string name="title_onboarding_2">Welcome to onboarding2</string>
-    <string name="description_onboarding_2">description onboarding2</string>
-    <string name="title_onboarding_3">Welcome to onboarding3</string>
-    <string name="description_onboarding_3">description onboarding3</string>
+    <string name="title_onboarding_1">Welcome to Capybara!</string>
+    <string name="description_onboarding_1">A whole new shopping experience</string>
+    <string name="title_onboarding_2">Special Offers!</string>
+    <string name="description_onboarding_2">Get special offers that you can not find anywhere else</string>
+    <string name="title_onboarding_3">Fast and Reliable</string>
+    <string name="description_onboarding_3">Get your delivery less than 3 days with reliable shipping</string>
     <string name="skip">skip</string>
     <string name="next">next</string>
     <string name="cart">Cart</string>

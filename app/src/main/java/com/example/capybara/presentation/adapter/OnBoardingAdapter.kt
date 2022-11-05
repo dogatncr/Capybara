@@ -28,12 +28,12 @@ class OnBoardingAdapter(
             1 -> OnboardingFragment.newInstance(
                 context.resources.getString(R.string.title_onboarding_2),
                 context.resources.getString(R.string.description_onboarding_2),
-                R.raw.capybara_gif
+                R.raw.descuento
             )
             else -> OnboardingFragment.newInstance(
                 context.resources.getString(R.string.title_onboarding_3),
                 context.resources.getString(R.string.description_onboarding_3),
-                R.raw.capybara_gif
+                R.raw.shield_protection
             )
         }
     }
