@@ -46,6 +46,8 @@ class LoginFragment : Fragment(){
                 viewModel.uiEvent.collect {
                     when (it) {
                         is LoginViewModel.LoginViewEvent.NavigateToMain -> {
+                            val uname=binding.etEmail.text.trim().toString().subSequence(0, binding.etEmail.text.trim().toString().indexOf('@'))
+                            viewModel.setUsername(uname as String)
                             navController.navigate(
                                 R.id.action_loginFragment_to_homeFragment,
                                 null,

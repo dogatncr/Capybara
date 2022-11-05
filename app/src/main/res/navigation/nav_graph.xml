@@ -56,4 +56,14 @@
     </fragment>
 
     <include app:graph="@navigation/login_graph" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.capybara.presentation.ui.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_login_graph"
+            app:destination="@id/login_graph"
+            app:popUpTo="@id/login_graph"
+            app:popUpToInclusive="false" />
+    </fragment>
 </navigation>

@@ -12,6 +12,17 @@
         android:id="@+id/mainLayout_homefragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/brandName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/categoryRecView"
+            android:src="@drawable/capybara_logo_text">
+        </ImageView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categoryRecView"
@@ -19,7 +30,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/brandName"
+           >
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -33,7 +45,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:alpha="0.4"
+                android:alpha="0.2"
                 android:background="#000000" />
             <ProgressBar
                 android:layout_width="wrap_content"

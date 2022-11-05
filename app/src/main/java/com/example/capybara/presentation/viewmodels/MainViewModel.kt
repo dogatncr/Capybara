@@ -20,10 +20,7 @@ class MainViewModel @Inject constructor(private val dataStoreManager: DataStoreM
     private val _uiEvent = MutableSharedFlow<SplashViewEvent>(replay = 0)
     val uiEvent: SharedFlow<SplashViewEvent> = _uiEvent
 
-    init {
-        checkOnBoardingVisibleStatus()
-    }
-    private fun checkOnBoardingVisibleStatus() {
+    fun checkOnBoardingVisibleStatus() {
         viewModelScope.launch {
             val isOnBoardingVisible = dataStoreManager.getOnBoardingVisible.first()
             if (checkCurrentUser()) {
@@ -57,6 +54,12 @@ class MainViewModel @Inject constructor(private val dataStoreManager: DataStoreM
                 _uiState.emit( MainUiState.Onboard)
             }
     }
+    }
+    fun logout(){
+        viewModelScope.launch {
+        firebaseAuth.signOut()
+        _uiState.emit( MainUiState.Login)
+        }
     }
 }
 

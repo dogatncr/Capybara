@@ -59,8 +59,9 @@ class SearchFragment: Fragment()  {
                     when (it) {
                         SearchViewState.Empty ->  Log.i("Search","Loading")
                         is SearchViewState.Error ->   Log.i("Search","${it.message?.status_message}")
-                        SearchViewState.Loading ->  Log.i("Search","Loading")
+                        SearchViewState.Loading ->  binding.loadingPanel.visibility= View.VISIBLE
                         is SearchViewState.Success -> {
+                            binding.loadingPanel.visibility= View.GONE
                             if (it.products != null) {
                                 productList=it.products
                                 if(productList.size!=0)

@@ -23,6 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="16dp"
+        app:iconifiedByDefault="false"
         app:layout_constraintTop_toBottomOf="@+id/searchTitle"
         app:queryHint="Search..."
         android:background="@drawable/edittext_bg"/>
@@ -68,5 +69,24 @@
         app:layout_constraintVertical_bias="1.0"
         tools:itemCount="5"
         tools:listitem="@layout/search_product" />
+    <RelativeLayout
+        android:id="@+id/loadingPanel"
+        android:visibility="gone"
+        tools:visibility ="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.2"
+            android:background="#000000" />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true" />
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

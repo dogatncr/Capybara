@@ -38,52 +38,51 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-
+        viewModel.checkOnBoardingVisibleStatus()
+        lifecycleScope.launchWhenResumed {
                 viewModel.uiState.collect {
                     when (it) {
                         is MainUiState.Loading ->binding.loadingPanel.visibility= VISIBLE
                         MainUiState.Empty ->  Log.d("main","activity started")
                         MainUiState.Error -> Log.d("error","error in main activity")
-                        MainUiState.Home ->  initNavController()
-                        MainUiState.Login ->  initLogin()
+                        MainUiState.Home ->  initNavController(true)
+                        MainUiState.Login ->  initNavController(false)
                         MainUiState.Onboard -> navigateToOnBoarding()
                     }
                 }
             }
-        }
-
     }
-    private fun initLogin() {
+   /* private fun initLogin() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
         navController.navigate(R.id.login_graph)
         binding.isVisibleBar = false
-    }
-    private fun initNavController() {
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+    }*/
+    private fun initNavController(isNavHome:Boolean) {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
+       binding.bottomNavigationView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.productDetailFragment || destination.id == R.id.cartFragment) {
-                binding.bottomNavigationView.setupWithNavController(navController)
+            if(destination.id == R.id.productDetailFragment || destination.id == R.id.cartFragment || destination.id == R.id.loginFragment || destination.id == R.id.signupFragment ) {
                 binding.isVisibleBar = false
                 binding.cartButton.visibility= GONE
-            } else {
-                binding.cartButton.visibility= GONE
-                if(destination.id == R.id.homeFragment){
+            } else if(destination.id == R.id.homeFragment){
                 binding.cartButton.visibility= VISIBLE
                 binding.cartButton.setOnClickListener{
                     navController.navigate(R.id.action_homeFragment_to_cartFragment)
                     }
-                }
-                binding.bottomNavigationView.setupWithNavController(navController)
                 binding.isVisibleBar = true
-            }
+                }
+            else{
+                binding.cartButton.visibility= GONE
+                binding.isVisibleBar = true}
         }
+
+       if (isNavHome.not()) {
+           navController.navigate(R.id.login_graph)
+       }
+       binding.isVisibleBar = isNavHome
     }
     private fun navigateToOnBoarding() {
         lifecycleScope.launch {

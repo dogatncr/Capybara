@@ -55,12 +55,15 @@ class HomeFragment : Fragment() {
                             else{
                                 //todo empty category page
                             }
+                            binding.mainLayoutHomefragment.visibility=VISIBLE
                             binding.loadingPanel.visibility= GONE
                         }
                         is HomeViewState.Loading -> {
+                            binding.mainLayoutHomefragment.visibility=GONE
                             binding.loadingPanel.visibility=VISIBLE
                         }
                         is HomeViewState.Empty -> { //Started
+                            binding.mainLayoutHomefragment.visibility=GONE
                             binding.loadingPanel.visibility=VISIBLE
                         }
                     }

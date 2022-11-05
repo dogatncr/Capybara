@@ -51,8 +51,10 @@ class SignUpViewModel  @Inject constructor(
 
     private fun setUser(userName: String, uuid: String?) {
         viewModelScope.launch {
-            dataStoreManager.setUserName(userName)
-            fireStore.collection("users").add(mapOf("username" to userName, "uuid" to uuid))
+
+            val uname=userName.subSequence(0, userName.indexOf('@'))
+            dataStoreManager.setUserName(uname as String)
+            fireStore.collection("users").add(mapOf("username" to uname, "uuid" to uuid))
                 .addOnSuccessListener { documentReference ->
                     viewModelScope.launch {
                         _uiState.emit(SignUpUiState.Success)

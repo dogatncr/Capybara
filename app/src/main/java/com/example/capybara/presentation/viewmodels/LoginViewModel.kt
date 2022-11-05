@@ -2,6 +2,7 @@ package com.example.capybara.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.capybara.data.util.DataStoreManager
 import com.example.capybara.domain.usecases.LoginUseCase
 import com.example.capybara.domain.usecases.LoginUseCaseParams
 import com.example.capybara.domain.usecases.LoginUseCaseState
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val dataStoreManager: DataStoreManager,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Empty)
     val uiState: StateFlow<LoginUiState> = _uiState
@@ -49,6 +51,11 @@ class LoginViewModel @Inject constructor(
 
     private fun isValidFields(email: String, password: String): Boolean {
         return email.isNotEmpty() && password.isNotEmpty()
+    }
+    fun setUsername(uname:String){
+        viewModelScope.launch {
+        dataStoreManager.setUserName(uname as String)
+        }
     }
 
     sealed class LoginViewEvent {
