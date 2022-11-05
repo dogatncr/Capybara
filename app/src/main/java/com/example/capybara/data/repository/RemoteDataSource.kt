@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
 interface RemoteDataSource {
-    suspend fun getAllProducts() : DataState<ProductList>
+    suspend fun getAllProducts() : Flow<DataState<ProductList>>
     suspend fun getProduct(ItemId : Int) : DataState<ProductList>
     suspend fun getAllCategories() : ArrayList<String>
     suspend fun getCategoryProducts(category : String) : Flow<DataState<ProductList>>

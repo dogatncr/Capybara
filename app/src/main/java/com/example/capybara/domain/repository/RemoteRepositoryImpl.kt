@@ -19,4 +19,8 @@ class RemoteRepositoryImpl  @Inject constructor(private val remoteDataSource: Re
         return remoteDataSource.getCategoryProducts(category)
     }
 
+    override suspend fun getAllProducts(): Flow<DataState<ProductList>> {
+        return remoteDataSource.getAllProducts()
+    }
+
 }

@@ -57,8 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun initLogin() {
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
         navController.navigate(R.id.login_graph)
@@ -69,11 +68,18 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.productDetailFragment) {
+            if(destination.id == R.id.productDetailFragment || destination.id == R.id.cartFragment) {
                 binding.bottomNavigationView.setupWithNavController(navController)
                 binding.isVisibleBar = false
+                binding.cartButton.visibility= GONE
             } else {
-
+                binding.cartButton.visibility= GONE
+                if(destination.id == R.id.homeFragment){
+                binding.cartButton.visibility= VISIBLE
+                binding.cartButton.setOnClickListener{
+                    navController.navigate(R.id.action_homeFragment_to_cartFragment)
+                    }
+                }
                 binding.bottomNavigationView.setupWithNavController(navController)
                 binding.isVisibleBar = true
             }

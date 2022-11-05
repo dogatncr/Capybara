@@ -9,8 +9,8 @@ import javax.inject.Inject
 class RemoteDataSourceImpl @Inject constructor(
     private val apiServices: ApiServices
 ) :BaseRemoteDataSource(), RemoteDataSource {
-    override suspend fun getAllProducts(): DataState<ProductList> {
-        return apiServices.getAllProducts()
+    override suspend fun getAllProducts(): Flow<DataState<ProductList>> {
+        return getResult {apiServices.getAllProducts()}
     }
 
     override suspend fun getProduct(ItemId: Int): DataState<ProductList> {

@@ -9,4 +9,6 @@ interface RemoteRepository {
     suspend fun getAllCategories() : ArrayList<String>
 
     suspend fun getCategoryProducts(category : String) : Flow<DataState<ProductList>>
+
+    suspend fun getAllProducts() : Flow<DataState<ProductList>>
 }

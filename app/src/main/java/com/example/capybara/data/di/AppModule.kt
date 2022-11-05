@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.capybara.data.util.DataStoreManager
 import com.example.capybara.presentation.adapter.CartAdapter
+import com.example.capybara.presentation.adapter.SearchAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +24,11 @@ class AppModule {
     @Provides
     fun providesCartAdapter() : CartAdapter {
         return CartAdapter()
+    }
+    @Singleton
+    @Provides
+    fun providesSearchAdapter() : SearchAdapter {
+        return SearchAdapter()
     }
 
 }

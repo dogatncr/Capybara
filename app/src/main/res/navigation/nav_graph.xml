@@ -11,21 +11,23 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_login_graph"
-            app:destination="@id/login_graph" />
-        <action
             android:id="@+id/action_homeFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
         <action
             android:id="@+id/action_homeFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment"
-            app:popUpTo="@id/homeFragment" />
+            />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment"
+            />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.capybara.presentation.ui.CartFragment"
-        android:label="FavoriteFragment"
-        tools:layout="@layout/fragment_cart" />
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart"
+        />
     <fragment
         android:id="@+id/productDetailFragment"
         android:name="com.example.capybara.presentation.ui.ProductDetailFragment"
@@ -36,7 +38,22 @@
             app:argType="com.example.capybara.data.models.Product" />
         <action
             android:id="@+id/action_productDetailFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.capybara.presentation.ui.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search">
+        <action
+        android:id="@+id/action_searchFragment_to_productDetailFragment"
+        app:destination="@id/productDetailFragment"
+           />
+        <action
+            android:id="@+id/action_searchFragment_to_CartFragment"
             app:destination="@id/cartFragment" />
     </fragment>
+
     <include app:graph="@navigation/login_graph" />
 </navigation>

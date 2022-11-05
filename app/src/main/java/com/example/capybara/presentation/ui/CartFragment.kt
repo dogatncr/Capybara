@@ -1,25 +1,24 @@
 package com.example.capybara.presentation.ui
 
+import android.R
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.navigateUp
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieDrawable.INFINITE
 import com.example.capybara.data.models.CartProduct
 import com.example.capybara.databinding.FragmentCartBinding
-import com.example.capybara.databinding.FragmentHomeBinding
 import com.example.capybara.presentation.adapter.CartAdapter
-import com.example.capybara.presentation.adapter.CategoryAdapter
 import com.example.capybara.presentation.viewmodels.CartViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class CartFragment : Fragment(){

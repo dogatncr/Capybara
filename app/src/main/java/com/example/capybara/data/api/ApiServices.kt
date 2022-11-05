@@ -8,7 +8,7 @@ import retrofit2.http.*
 interface ApiServices {
     //Get all products
     @GET("/products")
-    suspend fun getAllProducts() : DataState<ProductList>
+    suspend fun getAllProducts() : Response<ProductList>
     //Get a single product
     @GET("products/{id}")
     suspend fun getProduct(@Path(value = "id") ItemId : Int) : DataState<ProductList>

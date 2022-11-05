@@ -1,5 +1,6 @@
 package com.example.capybara.presentation.viewmodels
 
+import android.provider.ContactsContract.Data
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,15 +23,17 @@ class HomeViewModel @Inject constructor(
     private val repository:RemoteRepository
 ) :
     ViewModel(){
-    lateinit var products : ArrayList<Product>
+    //shared viewmodel for both home and search operations
     var categories : ArrayList<String> =ArrayList()
-    var catList : ArrayList<Category> = ArrayList()
 
     private val _uiState = MutableStateFlow<HomeViewState>(HomeViewState.Empty)
     val uiState: StateFlow<HomeViewState> = _uiState
 
     private val _uiEvent = MutableSharedFlow<HomeViewEvent>(replay = 0)
     val uiEvent: SharedFlow<HomeViewEvent> = _uiEvent
+
+    private val _searchState = MutableSharedFlow<SearchViewState>(replay = 0)
+    val searchState: SharedFlow<SearchViewState> = _searchState
 
     init {
         getCategoriesWithProducts()
@@ -59,7 +62,31 @@ class HomeViewModel @Inject constructor(
             _uiEvent.emit(HomeViewEvent.ShowError("Network Error"))
         }
     }
-}
+    val searchCategories : MutableLiveData<DataState<ArrayList<String>>> = MutableLiveData()
+
+    fun searchAllCategories() = viewModelScope.launch(Dispatchers.IO) {
+        try {
+                val apiResult = repository.getAllCategories()
+                searchCategories.postValue(DataState.Success(apiResult))
+        }catch (e : Exception){
+            searchCategories.postValue(DataState.Error(ApiError(401,"${e.localizedMessage} ?: Unknown Error") ))
+        }
+    }
+
+    fun searchAllProducts() = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            repository.getAllProducts().collect{
+                when (it) {
+                    is DataState.Error -> _searchState.emit(SearchViewState.Error(it.error))
+                    is DataState.Loading -> _searchState.emit(SearchViewState.Loading)
+                    is DataState.Success -> _searchState.emit(SearchViewState.Success(it.data))
+                }
+            }
+        }catch (e : Exception){
+            _searchState.emit(SearchViewState.Error(ApiError(401,"unkown error")))
+        }
+     }
+    }
 
 sealed class HomeViewEvent {
     data class ShowError(val message: String?) : HomeViewEvent()
@@ -69,4 +96,10 @@ sealed class HomeViewState {
     object Empty : HomeViewState()
     class Success(val categories: ArrayList<Category>?) : HomeViewState()
     object Loading : HomeViewState()
+}
+sealed class SearchViewState {
+    object Empty : SearchViewState()
+    class Success(val products: ArrayList<Product>?) : SearchViewState()
+    class Error(val message: ApiError?) : SearchViewState()
+    object Loading : SearchViewState()
 }
