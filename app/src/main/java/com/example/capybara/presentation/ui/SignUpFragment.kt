@@ -1,6 +1,9 @@
 package com.example.capybara.presentation.ui
 
 import android.os.Bundle
+import android.text.InputType
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -66,9 +69,10 @@ class SignUpFragment : Fragment() {
                 viewModel.uiState.collect {
                     when (it) {
                         SignUpUiState.Loading -> {
-                            binding.loadingPanel.visibility= View.VISIBLE
+                            binding.loadingPanel.visibility = View.VISIBLE
                         }
-                        else -> {binding.loadingPanel.visibility= View.GONE
+                        else -> {
+                            binding.loadingPanel.visibility = View.GONE
                         }
                     }
                 }
@@ -81,7 +85,20 @@ class SignUpFragment : Fragment() {
                 binding.etPassword.text.trim().toString(),
             )
         }
+        binding.btnLogin.setOnClickListener {
+            navController.navigateUp()
+        }
+        binding.ivShowPassword.setOnClickListener {
+            if ( binding.etPassword.getTransformationMethod().equals(PasswordTransformationMethod.getInstance() )) {
+                binding.ivShowPassword.setImageResource(R.drawable.ic_baseline_visibility_24)
+                binding.etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                binding.etPassword2.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+            else{
+                binding.ivShowPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                binding.etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                binding.etPassword2.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+        }
     }
-
-
 }

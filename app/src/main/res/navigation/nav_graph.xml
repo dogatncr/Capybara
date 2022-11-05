@@ -64,6 +64,7 @@
             android:id="@+id/action_profileFragment_to_login_graph"
             app:destination="@id/login_graph"
             app:popUpTo="@id/login_graph"
-            app:popUpToInclusive="false" />
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

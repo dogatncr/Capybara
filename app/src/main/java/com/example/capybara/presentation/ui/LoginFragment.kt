@@ -1,6 +1,8 @@
 package com.example.capybara.presentation.ui.LoginFragment
 
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -48,11 +50,10 @@ class LoginFragment : Fragment(){
                         is LoginViewModel.LoginViewEvent.NavigateToMain -> {
                             val uname=binding.etEmail.text.trim().toString().subSequence(0, binding.etEmail.text.trim().toString().indexOf('@'))
                             viewModel.setUsername(uname as String)
-                            navController.navigate(
-                                R.id.action_loginFragment_to_homeFragment,
-                                null,
-                                androidx.navigation.NavOptions.Builder().setPopUpTo(0, true).build()
-                            )
+                            while (findNavController().currentBackStackEntry != null) {
+                                findNavController().popBackStack()
+                            }
+                            findNavController().navigate(R.id.nav_graph)
                             Toast.makeText(requireContext(), "Login Success", Toast.LENGTH_SHORT)
                                 .show()
                         }
@@ -84,6 +85,16 @@ class LoginFragment : Fragment(){
 
         binding.btnSignUp.setOnClickListener {
             navController.navigate(R.id.action_loginFragment_to_signupFragment)
+        }
+        binding.ivShowPassword.setOnClickListener {
+            if ( binding.etPassword.getTransformationMethod().equals(PasswordTransformationMethod.getInstance() )) {
+                binding.ivShowPassword.setImageResource(R.drawable.ic_baseline_visibility_24)
+                binding.etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+            else{
+                binding.ivShowPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                binding.etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
         }
     }
 }

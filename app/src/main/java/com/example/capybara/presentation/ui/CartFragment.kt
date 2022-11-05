@@ -1,6 +1,8 @@
 package com.example.capybara.presentation.ui
 
 import android.R
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +18,7 @@ import com.example.capybara.databinding.FragmentCartBinding
 import com.example.capybara.presentation.adapter.CartAdapter
 import com.example.capybara.presentation.viewmodels.CartViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -98,6 +101,18 @@ class CartFragment : Fragment(){
         }
         binding.startShoppingButton.setOnClickListener{
             findNavController().navigateUp()
+        }
+        binding.checkoutButton.setOnClickListener {
+            val alert: AlertDialog.Builder = AlertDialog.Builder(context)
+            alert.setMessage("Proceed to check out?")
+                .setPositiveButton("Check out", { dialog, which ->
+                    viewModel.clearCart()
+                    Snackbar.make(requireView(), "Checked out succesfully", Snackbar.LENGTH_SHORT)
+                        .show()
+                }).setNegativeButton("Cancel", null)
+
+            val alert1: AlertDialog = alert.create()
+            alert1.show()
         }
     }
 }

@@ -80,6 +80,12 @@ class MainActivity : AppCompatActivity() {
         }
 
        if (isNavHome.not()) {
+           // pop backStack while it is not empty
+           while (navController.currentBackStackEntry != null) {
+               navController.popBackStack()
+           }
+           /*navController.setGraph(R.id.login_graph)
+           navController.popBackStack()*/
            navController.navigate(R.id.login_graph)
        }
        binding.isVisibleBar = isNavHome
