@@ -42,13 +42,9 @@ class ProfileFragment: Fragment() {
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        lifecycleScope.launchWhenStarted {
-            launch {
-                binding.profileName.text=dataStoreManager.getUserName.first()
-        }
         firebaseAuth.currentUser?.let {
             binding.profileEmail.text=it.email
-            }
+            binding.profileName.text=it.email?.subSequence(0, it.email!!.indexOf('@'))
         }
         setOnClickListeners()
     }

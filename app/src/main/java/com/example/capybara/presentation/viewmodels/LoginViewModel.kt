@@ -54,7 +54,7 @@ class LoginViewModel @Inject constructor(
     }
     fun setUsername(uname:String){
         viewModelScope.launch {
-        dataStoreManager.setUserName(uname as String)
+        dataStoreManager.setUserName(uname)
         }
     }
 

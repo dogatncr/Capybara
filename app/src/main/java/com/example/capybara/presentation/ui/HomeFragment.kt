@@ -40,13 +40,12 @@ class HomeFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getCategoriesWithProducts()
-        binding.MainScrollViewHomeFrag.isFillViewport=true
         lifecycleScope.launchWhenResumed {
             launch {
                 viewModel.uiState.collect {
                     when (it) {
                         is HomeViewState.Success -> {
+                            binding.loadingPanel.visibility= GONE
                             val categories = it.categories
                             if (categories != null) {
                                 if(categories.size!=0)
@@ -55,7 +54,6 @@ class HomeFragment : Fragment() {
                             else{
                                 //todo empty category page
                             }
-                            binding.loadingPanel.visibility= GONE
                         }
                         is HomeViewState.Loading -> {
                             binding.loadingPanel.visibility=VISIBLE
