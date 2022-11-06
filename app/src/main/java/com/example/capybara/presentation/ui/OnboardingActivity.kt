@@ -19,9 +19,7 @@ class OnboardingActivity: AppCompatActivity(){
     private lateinit var binding: ActivityOnboardingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen().setKeepOnScreenCondition {
-            !viewModel.isLoading.value
-        }
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -34,18 +32,26 @@ class OnboardingActivity: AppCompatActivity(){
 
         binding.textSkip.setOnClickListener {
             viewModel.setOnBoardingStatus()
-            val intent =
-                Intent(applicationContext, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            viewModel._isComplete.observe(this){
+                if(it){
+                    val intent =
+                        Intent(applicationContext, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
         }
         binding.btnNextStep.setOnClickListener{
             if (getItem() > binding.viewPager.childCount) {
                 viewModel.setOnBoardingStatus()
-                val intent =
-                    Intent(applicationContext, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+                viewModel._isComplete.observe(this){
+                    if(it){
+                        val intent =
+                            Intent(applicationContext, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
             } else {
                 binding.viewPager.setCurrentItem(getItem() + 1, true)
             }
