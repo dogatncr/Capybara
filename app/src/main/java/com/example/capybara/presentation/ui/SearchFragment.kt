@@ -67,6 +67,10 @@ class SearchFragment: Fragment()  {
                                 if(productList.size!=0)
                                     setRecycler()
                             }
+                            else{
+                                Snackbar.make(requireView(), "Error, retrieving shop data", Snackbar.LENGTH_SHORT)
+                                    .show()
+                            }
                         }
 
                     }
@@ -115,6 +119,8 @@ class SearchFragment: Fragment()  {
                     Log.i("Search","Loading")
                 }
                 is DataState.Error -> {
+                    Snackbar.make(requireView(), "Error, retrieving shop data", Snackbar.LENGTH_SHORT)
+                        .show()
                     Log.i("Search","${result.error?.status_message}")
                 }
             }

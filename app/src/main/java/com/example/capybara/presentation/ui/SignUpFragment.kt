@@ -80,7 +80,7 @@ class SignUpFragment : Fragment() {
         }
 
         binding.btnSignUp.setOnClickListener {
-            if( binding.etPassword.text == binding.etPassword2.text){
+            if( binding.etPassword.text.trim().toString() == binding.etPassword2.text.trim().toString()){
             viewModel.signup(
                 binding.etEmail.text.trim().toString(),
                 binding.etPassword.text.trim().toString(),

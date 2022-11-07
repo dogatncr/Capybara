@@ -46,13 +46,15 @@ class HomeFragment : Fragment() {
                     when (it) {
                         is HomeViewState.Success -> {
                             binding.loadingPanel.visibility= GONE
+                            binding.brandName.visibility=VISIBLE
                             val categories = it.categories
                             if (categories != null) {
                                 if(categories.size!=0)
                                     setCategoryRecycler(categories)
                             }
                             else{
-                                //todo empty category page
+                                Snackbar.make(requireView(), "Error, retrieving shop data", Snackbar.LENGTH_SHORT)
+                                    .show()
                             }
                         }
                         is HomeViewState.Loading -> {
